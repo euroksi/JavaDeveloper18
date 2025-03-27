@@ -19,8 +19,7 @@ public class Note {
     @Size(max = 1000, message = "Content must be less than 1000 characters")
     private String content;
 
-    public Note() {
-    }
+    public Note() {}
 
     public Note(String title, String content) {
         this.title = title;

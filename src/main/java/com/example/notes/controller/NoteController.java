@@ -4,12 +4,11 @@ import com.example.notes.dto.NoteRequest;
 import com.example.notes.model.Note;
 import com.example.notes.repository.NoteRepository;
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/notes")
@@ -43,9 +42,7 @@ public class NoteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Note> updateNote(
-            @PathVariable Long id,
-            @Valid @RequestBody NoteRequest noteRequest) {
+    public ResponseEntity<Note> updateNote(@PathVariable Long id, @Valid @RequestBody NoteRequest noteRequest) {
         Optional<Note> optionalNote = noteRepository.findById(id);
         if (optionalNote.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -64,6 +61,7 @@ public class NoteController {
         if (!noteRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
+
         noteRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
